@@ -1,18 +1,46 @@
 
 public class Calculator 
 {
-    public float pricePerMinute = 0.18f;
-    public TimeStruct useTime;
+    private float pricePerMinute = 0.18f;
+    private float pricePerSecond;
+    private TimeStruct useTime;
 
-    public void SetPrice(int minutes, int seconds)
+    private float totalPrice;
+
+    // Setzt bei Erstellung des Objektes den Preis pro Minute
+    public Calculator(float pricePerMinute)
+    {
+        this.pricePerMinute = pricePerMinute;
+        this.pricePerSecond = pricePerMinute / 60;
+    }
+
+    // Erstellt ein TimeStruct Objekt mit der Nutzungszeit des Scooters
+    public void setTime(int minutes, int seconds)
     {
         useTime = new TimeStruct(minutes, seconds);
     }
 
-    public void CalcPrice()
+    // Berechnet den Preis der Nutzungszeit
+    public void calculatePrice()
     {
-        float pricePerSecond = pricePerMinute / 60;
-        float price = useTime.GetMinutes() * pricePerMinute + useTime.GetSeconds() * pricePerSecond;
-        System.out.println(Math.floor(price * 100) / 100);
+        totalPrice = useTime.getMinutes() * pricePerMinute + useTime.getSeconds() * pricePerSecond;
+
+        // Rundung des Preises auf 2 Kommastellen
+        totalPrice = (float)Math.floor(totalPrice * 100) / 100;
+    }
+
+    public TimeStruct getUseTime()
+    {
+        return useTime;
+    }
+
+    public float getPricePerMinute()
+    {
+        return pricePerMinute;
+    }
+
+    public float getTotalPrice()
+    {
+        return totalPrice;
     }
 }

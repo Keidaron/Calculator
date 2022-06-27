@@ -8,25 +8,29 @@ public class TimeStruct
         minutes = min;
         seconds = sec;
 
-        if(seconds >= 60)
+        // Wenn die Sekunden größer/gleich 60 sein sollten werden die Minuten 
+        // hochgezählt und die Sekunden abgezogen
+        while(seconds >= 60)
         {
             minutes = minutes + 1;
             seconds = seconds - 60;
         }
     }
 
-    public String GetTime()
-    {
-        String _temp = minutes + "," + seconds;
-        return _temp;
-    }
-
-    public int GetMinutes()
+    public int getMinutes()
     {
         return minutes;
     }
-    public int GetSeconds()
+
+    public int getSeconds()
     {
         return seconds;
+    }
+
+    // Gibt die Variablen des Objekts als
+    // wunderschönen String zurück
+    public String toString()
+    {
+        return minutes + ":" + seconds;
     }
 }
