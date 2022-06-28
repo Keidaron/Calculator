@@ -1,10 +1,15 @@
 import java.util.Scanner;
+import UserInterface.MainUI;
 
 public class App 
 {
     public static void main(String[] args) throws Exception 
     {
-        // Initialisierung benötiger Objekte
+        MainUI ui = new MainUI("ScooTeq Dings");
+    }
+
+    /*
+     * // Initialisierung benötiger Objekte
         Scanner scanner = new Scanner(System.in);
         Calculator calc = new Calculator(0.18f);
 
@@ -21,5 +26,5 @@ public class App
         System.out.println(calc.getTotalPrice() + " Euro für " + calc.getUseTime().toString() + " Minuten.");
 
         scanner.close();
-    }
+     */
 }
