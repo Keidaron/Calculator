@@ -1,53 +1,65 @@
-package UserInterface;
+package userInterface;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import Utils.NuvoUtils;
+import tools.NuvoUtils;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class StartUp extends JDialog
 {
-        // Pop-UP Variables & Objects
-        private JPanel popPanel = new JPanel();
-
-        // Elemente des Fensters
+        //[Variables]
         Dimension buttonSize = new Dimension(120, 30);
+        private int offset; // Für den Abstand der Buttons zueinander
+
+        //[Objects]
+        private JPanel popPanel = new JPanel();
         private JButton rentButton = new JButton("Mieten");
         private JButton registerButton = new JButton("Registrieren");
 
-        private int offset; // Für den Abstand der Buttons zueinander
-        public StartUp instance; // Eine Reference zu sich selbst um das schließen dieses Fensters zu ermöglichen
+        //[References]
+        private StartUp _instance; // Eine Reference zu sich selbst um das schließen dieses Fensters zu ermöglichen
+
 
     // Constructor
-    public StartUp(Dimension resolution)
+    public StartUp(Dimension screenSize)
     {
         offset = buttonSize.height + 25;
-        createFrame(resolution);
-        addButtons();
+        _instance = this;
 
-        instance = this;
+        // Stellt das Fenster ein und füllt es mit Komponenten
+        initStartUp(screenSize);
+
+        // Dieses Fenster wird sichbar gemacht
         this.setVisible(true);
     }
 
+    // Beginnt mit dem Initialisieren des StartUp Fensters
+    public void initStartUp(Dimension screen)
+    {
+        createFrame(screen);
+        addButtons();
+    }
+
     // Erstellt das PopUp Fenster
-    private void createFrame(Dimension screenResolution)
+    private void createFrame(Dimension screenSize)
     {
         this.setSize(200, 250);
-        //this.setLocation((screenResolution.width / 2) - (this.getWidth() / 2), (screenResolution.height / 2) - (this.getHeight() / 2));
-        this.setLocation(NuvoUtils.getMiddlePointOfValues(screenResolution, this.getSize()));
-        // Modal => Ist im Dauerfokus
+        this.setLocation(NuvoUtils.getCenter(screenSize, this.getSize()));
         this.setResizable(true);
-        this.setUndecorated(true);
-        this.setModal(true);
+        this.setUndecorated(true);    // Entfernt die ActionBar
+        this.setModal(true);                // Modal => Ist im Dauerfokus
 
-        // Hinzufügen des JPanels
+        // Hinzufügen des JPanels für die Komponenten
         this.add(popPanel);
+
+        // Layout und Hintergrund für das Panel des Fensters
         popPanel.setLayout(null);
         popPanel.setBackground(Color.red);
     }
@@ -57,14 +69,24 @@ public class StartUp extends JDialog
     {
         // Button fürs Mieten
         rentButton.setSize(buttonSize);
-        rentButton.setLocation((this.getWidth() / 2) - (rentButton.getWidth() / 2), ((this.getHeight() / 2) - (rentButton.getHeight() / 2)) - offset);
-        rentButton.addActionListener(new ActionListener(){
+        rentButton.setLocation(NuvoUtils.getCenter(this.getSize(), rentButton.getSize()));
+        rentButton.setLocation(rentButton.getX(), rentButton.getY() - offset);
 
+        // Dem Button wird eine Methode zum Ausführen gegeben
+        // Öffnet das Fenster zum verfolgen der aktuellen Nutzung
+        rentButton.addActionListener(new ActionListener(){
             @Override
-            public void actionPerformed(ActionEvent e) {
-                MainUI scooterUI = new MainUI();
-                instance.dispose();
-                scooterUI.toFront();
+            public void actionPerformed(ActionEvent e) 
+            {
+                //TODO eine LoginAbfrage hinzufügen ?
+                MainUI scooterUI;
+                try {
+                    scooterUI = new MainUI();
+                    _instance.dispose();
+                    scooterUI.toFront();
+                } catch (IOException e1) {
+                    System.err.println("Image was not found!");
+                }
             }
 
         });
@@ -72,7 +94,19 @@ public class StartUp extends JDialog
 
         // Button fürs Registrieren
         registerButton.setSize(buttonSize);
-        registerButton.setLocation(rentButton.getX(), (this.getHeight() / 2) - (rentButton.getHeight() / 2));
+        registerButton.setLocation(NuvoUtils.getCenter(this.getSize(), rentButton.getSize()));
+
+        // Dem Button wird eine Methode zum Ausführen gegeben
+        // Öffnet den Registrierungs Dialog
+        registerButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                //TODO einen User erstellen und in die Datenbank einschreiben ?
+                RegisterUI register = new RegisterUI();
+                register.initWindow();
+            }
+        });
         popPanel.add(registerButton);
     }
 }
