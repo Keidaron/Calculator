@@ -7,7 +7,6 @@ public class App
     public static void main(String[] args) throws Exception 
     {
         StartUp start = new StartUp(NuvoUtils.getScreenResolution());
-        
     }
 
     /*

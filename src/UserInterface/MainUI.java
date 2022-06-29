@@ -3,6 +3,8 @@ package UserInterface;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import Utils.NuvoUtils;
+
 import java.awt.Toolkit;
 import java.awt.Dimension;
 
@@ -14,14 +16,14 @@ public class MainUI extends JFrame{
     Dimension screenResolution;
 
     // Initialisiert das Hauptfenster der GUI
-    public MainUI(String title)
+    public MainUI()
     {
         screenResolution = Toolkit.getDefaultToolkit().getScreenSize();
 
-        this.setTitle(title);
+        this.setUndecorated(true);
         this.setSize(600, 400);
 
-        this.setLocation((screenResolution.width / 2) - (this.getWidth() / 2), (screenResolution.height / 2) - (this.getHeight() / 2));
+        this.setLocation(NuvoUtils.getMiddleOfScreen().x - (this.getWidth() / 2), NuvoUtils.getMiddleOfScreen().y - (this.getHeight() / 2));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
     }

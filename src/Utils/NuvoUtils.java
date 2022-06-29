@@ -22,4 +22,10 @@ public class NuvoUtils {
     {
         return new Point((parentPosition.width / 2) - (childPosition.width / 2), (parentPosition.height / 2) - (childPosition.height / 2));
     }
+
+    public static Point getMiddleOfScreen()
+    {
+        Point _p = new Point(getScreenResolution().width / 2, getScreenResolution().height / 2);
+        return _p;
+    }
 }
