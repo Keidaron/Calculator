@@ -1,10 +1,13 @@
 import UserInterface.MainUI;
+import UserInterface.StartUp;
+import Utils.NuvoUtils;
 
 public class App 
 {
     public static void main(String[] args) throws Exception 
     {
-        MainUI ui = new MainUI("ScooTeq Dings");
+        StartUp start = new StartUp(NuvoUtils.getScreenResolution());
+        
     }
 
     /*

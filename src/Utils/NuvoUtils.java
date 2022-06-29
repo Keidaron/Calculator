@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.Component;
 import java.awt.*;
 
-import javax.swing.JComponent;
-
 public class NuvoUtils {
 
 
@@ -19,9 +17,9 @@ public class NuvoUtils {
     {
         return new Dimension((parentComponent.getWidth() / 2) - (childComponent.getWidth() / 2), (parentComponent.getHeight() / 2) - (childComponent.getHeight() / 2));
     }
-    
-    public static Dimension getMiddlePointOfValues(Point parentPosition, Point childPosition)
+
+    public static Point getMiddlePointOfValues(Dimension parentPosition, Dimension childPosition)
     {
-        return new Dimension((parentPosition.x / 2) - (childPosition.x / 2), (parentPosition.y / 2) - (childPosition.x / 2));
+        return new Point((parentPosition.width / 2) - (childPosition.width / 2), (parentPosition.height / 2) - (childPosition.height / 2));
     }
 }

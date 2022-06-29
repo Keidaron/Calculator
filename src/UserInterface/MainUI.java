@@ -24,7 +24,5 @@ public class MainUI extends JFrame{
         this.setLocation((screenResolution.width / 2) - (this.getWidth() / 2), (screenResolution.height / 2) - (this.getHeight() / 2));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
-
-        new PopUp(screenResolution);
     }
 }
