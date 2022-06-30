@@ -79,8 +79,9 @@ public class MainUI extends JFrame{
     private void initWindow()
     {
         // Einstellung des Fensters
-        this.setUndecorated(true);
         this.setSize(400, 250);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(NuvoUtils.getCenter(NuvoUtils.getScreenResolution(), this.getSize()));
 
         // Anderer Dekokram
