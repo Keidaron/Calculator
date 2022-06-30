@@ -1,9 +1,9 @@
 package userInterface;
 
+import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,9 +11,9 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DecimalFormat;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -43,8 +43,7 @@ public class MainUI extends JFrame{
         private JLabel logoLabel = new JLabel();        
 
     // Das mittlere Panel mit seinen Komponenten
-    private JPanel midPanel = new JPanel();
-        private JLabel timeLabel = new JLabel("Gefahrene Zeit");
+    private JPanel midPanel = new JPanel(new GridLayout(3, 2));
         private JLabel minuteLabel = new JLabel("Minuten:");
         private JTextField minutesField = new JTextField();
         private JLabel secondsLabel = new JLabel("Sekunden:");
@@ -93,14 +92,17 @@ public class MainUI extends JFrame{
         // Panel des Fensters
         this.add(mainPanel);
 
-        upperPanel.setBackground(Color.cyan);
+        upperPanel.setBackground(new Color(172,201,205,255));
         mainPanel.add(upperPanel, BorderLayout.NORTH);
 
         midPanel.setBackground(Color.lightGray);
         mainPanel.add(midPanel, BorderLayout.CENTER);
 
-        lowerPanel.setBackground(Color.cyan);
+        lowerPanel.setBackground(Color.lightGray);
         mainPanel.add(lowerPanel, BorderLayout.SOUTH);
+
+        mainPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.GRAY));
+        midPanel.setBorder(BorderFactory.createMatteBorder(2, 1, 2, 1, Color.GRAY));
     }
 
     private void initComponents()
@@ -110,8 +112,6 @@ public class MainUI extends JFrame{
         //#endregion
 
         //#region Mittleres Panel
-            midPanel.add(timeLabel);
-            timeLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
 
             midPanel.add(minuteLabel);
             midPanel.add(minutesField);
@@ -143,7 +143,7 @@ public class MainUI extends JFrame{
                             try 
                             {
                                 calc.setTime(Integer.parseInt(getMinutes()), Integer.parseInt(getSeconds()));
-                                priceField.setText(new DecimalFormat("##.##").format(Float.parseFloat(calc.calculatePrice())));
+                                priceField.setText(calc.calculatePrice());
                             } catch (Exception numberError) 
                             {
                                 JOptionPane.showMessageDialog(_instance, "Bitte fülle Minuten und Sekunden aus.");
@@ -164,7 +164,7 @@ public class MainUI extends JFrame{
 
     private void initPictures()
     {
-        ImageIcon _icon = new ImageIcon(logo.getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+        ImageIcon _icon = new ImageIcon(logo.getScaledInstance(100, 64, Image.SCALE_SMOOTH));
         logoLabel.setIcon(_icon);
     }
 

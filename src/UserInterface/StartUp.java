@@ -1,5 +1,6 @@
 package userInterface;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -17,10 +18,9 @@ public class StartUp extends JDialog
         //[Variables]
         Dimension buttonSize = new Dimension(120, 30);
         private int offset; // Für den Abstand der Buttons zueinander
-
         //[Objects]
         private JPanel popPanel = new JPanel();
-        private JButton rentButton = new JButton("Mieten");
+        private JButton rentButton = new JButton("Preisberechnen");
         private JButton registerButton = new JButton("Registrieren");
 
         //[References]
@@ -61,7 +61,8 @@ public class StartUp extends JDialog
 
         // Layout und Hintergrund für das Panel des Fensters
         popPanel.setLayout(null);
-        popPanel.setBackground(Color.red);
+        popPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.GRAY));
+        popPanel.setBackground(new Color(172,201,205,255));
     }
 
     // Fügt die Buttons des PopUps hinzu

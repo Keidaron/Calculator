@@ -36,11 +36,6 @@ public class Calculator
         return useTime;
     }
 
-    public float getPricePerMinute()
-    {
-        return pricePerMinute;
-    }
-
     public float getTotalPrice()
     {
         return totalPrice;
