@@ -1,11 +1,8 @@
-import tools.NuvoUtils;
-import userInterface.StartUp;
-
 public class App
 {
+    // Start und Ende eines jeden Programmes
     public static void main(String[] args) throws Exception 
     {
-        StartUp start = new StartUp(NuvoUtils.getScreenResolution());
-        start.initStartUp(NuvoUtils.getScreenResolution());
+        UserInterface gui = new UserInterface(200, 250);
     }
 }

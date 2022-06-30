@@ -1,4 +1,4 @@
-package functions;
+
 public class TimeStruct 
 {
     private int minutes;
