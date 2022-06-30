@@ -28,6 +28,7 @@ public class UserInterface extends JFrame
     private Dimension windowSize;
     private Dimension screenSize;
 
+    // Fenster Komponenten
     BufferedImage logo;
     private JFrame windowFrame = new JFrame("ScooTeq Calculator");
     private JPanel windowPanel = new JPanel(new BorderLayout());
