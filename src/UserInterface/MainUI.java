@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -139,7 +140,7 @@ public class MainUI extends JFrame{
                         {
                             Calculator calc = new Calculator(0.18f);
                             calc.setTime(Integer.parseInt(getMinutes()), Integer.parseInt(getSeconds()));
-                            priceField.setText(calc.calculatePrice());
+                            priceField.setText(new DecimalFormat("##.##").format(Float.parseFloat(calc.calculatePrice())));
                             return;
                         }
                     }
@@ -164,6 +165,10 @@ public class MainUI extends JFrame{
     private boolean validInput(String input)
     {
         try {
+            if(input.equals(""))
+            {
+                input = "0";
+            }
             Integer.parseInt(input);
             return true;
         } catch (Exception e) {
