@@ -139,8 +139,16 @@ public class MainUI extends JFrame{
                         if(validInput(getSeconds()))
                         {
                             Calculator calc = new Calculator(0.18f);
-                            calc.setTime(Integer.parseInt(getMinutes()), Integer.parseInt(getSeconds()));
-                            priceField.setText(new DecimalFormat("##.##").format(Float.parseFloat(calc.calculatePrice())));
+                            System.out.println(getMinutes());
+                            try 
+                            {
+                                calc.setTime(Integer.parseInt(getMinutes()), Integer.parseInt(getSeconds()));
+                                priceField.setText(new DecimalFormat("##.##").format(Float.parseFloat(calc.calculatePrice())));
+                            } catch (Exception numberError) 
+                            {
+                                JOptionPane.showMessageDialog(_instance, "Bitte fülle Minuten und Sekunden aus.");
+                            }
+                            
                             return;
                         }
                     }
