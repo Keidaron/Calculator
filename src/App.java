@@ -1,7 +1,7 @@
 import tools.NuvoUtils;
 import userInterface.StartUp;
 
-public class App 
+public class App
 {
     public static void main(String[] args) throws Exception 
     {

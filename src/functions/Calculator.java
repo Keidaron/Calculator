@@ -1,3 +1,4 @@
+package functions;
 
 public class Calculator 
 {
@@ -21,12 +22,13 @@ public class Calculator
     }
 
     // Berechnet den Preis der Nutzungszeit
-    public void calculatePrice()
+    public String calculatePrice()
     {
         totalPrice = useTime.getMinutes() * pricePerMinute + useTime.getSeconds() * pricePerSecond;
 
         // Rundung des Preises auf 2 Kommastellen
         totalPrice = (float)Math.floor(totalPrice * 100) / 100;
+        return "" + totalPrice;
     }
 
     public TimeStruct getUseTime()

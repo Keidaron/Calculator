@@ -1,23 +1,27 @@
 package userInterface;
 
-import java.awt.image.BufferedImage;
-import java.awt.Dimension;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.awt.Color;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import functions.Calculator;
 import tools.NuvoUtils;
 
 /**
@@ -28,6 +32,7 @@ public class MainUI extends JFrame{
     
     //[Variables]
     Dimension screenResolution;
+    Dimension textFieldSize = new Dimension(80, 25);
     BufferedImage logo;
 
     //[Objects]
@@ -39,7 +44,10 @@ public class MainUI extends JFrame{
     // Das mittlere Panel mit seinen Komponenten
     private JPanel midPanel = new JPanel();
         private JLabel timeLabel = new JLabel("Gefahrene Zeit");
-        private JTextField timeField = new JTextField();
+        private JLabel minuteLabel = new JLabel("Minuten:");
+        private JTextField minutesField = new JTextField();
+        private JLabel secondsLabel = new JLabel("Sekunden:");
+        private JTextField secondsField = new JTextField();
         private JLabel priceLabel = new JLabel("Fahrtpreis");
         private JTextField priceField = new JTextField();
 
@@ -48,6 +56,7 @@ public class MainUI extends JFrame{
         private JButton endAndCalculate = new JButton("Fahrt beenden!");
 
     //[References]
+    private MainUI _instance;
 
     // Initialisiert das Hauptfenster der GUI
     public MainUI() throws IOException
@@ -56,6 +65,7 @@ public class MainUI extends JFrame{
         screenResolution = NuvoUtils.getScreenResolution();
         InputStream input = new FileInputStream("src\\pictures\\templateLogo.jpg");
         logo = ImageIO.read(input);
+        _instance = this;
 
         initWindow();
         initPanels();
@@ -99,13 +109,45 @@ public class MainUI extends JFrame{
 
         //#region Mittleres Panel
             midPanel.add(timeLabel);
-            midPanel.add(timeField);
+            timeLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+
+            midPanel.add(minuteLabel);
+            midPanel.add(minutesField);
+            minutesField.setPreferredSize(textFieldSize);
+            minutesField.setText("Minuten");
+
+            midPanel.add(secondsLabel);
+            midPanel.add(secondsField);
+            secondsField.setPreferredSize(textFieldSize);
+            secondsField.setText("Sekunden");
+
             midPanel.add(priceLabel);
+            priceField.setPreferredSize(textFieldSize);
+            priceField.setText("Preis");
             midPanel.add(priceField);
         //#endregion
 
         //#region Unteres Panel
             endAndCalculate.setSize(100, 25);
+            endAndCalculate.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(validInput(getMinutes()))
+                    {
+                        if(validInput(getSeconds()))
+                        {
+                            Calculator calc = new Calculator(0.18f);
+                            calc.setTime(Integer.parseInt(getMinutes()), Integer.parseInt(getSeconds()));
+                            priceField.setText(calc.calculatePrice());
+                            return;
+                        }
+                    }
+
+                    //JOptionPane op = new JOptionPane();
+                    JOptionPane.showMessageDialog(_instance, "Es wurden keine Sekunden oder Minuten eingegeben.");
+                }
+                
+            });
             lowerPanel.add(endAndCalculate);
         //#endregion
     }
@@ -114,5 +156,27 @@ public class MainUI extends JFrame{
     {
         ImageIcon _icon = new ImageIcon(logo.getScaledInstance(64, 64, Image.SCALE_SMOOTH));
         logoLabel.setIcon(_icon);
+    }
+
+
+    // Prüft ob der Input eine Zahl ist
+    private boolean validInput(String input)
+    {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private String getMinutes()
+    {
+        return minutesField.getText();
+    }
+
+    private String getSeconds()
+    {
+        return secondsField.getText();
     }
 }
